@@ -1,0 +1,8 @@
+{
+    "player": {
+        "budget": 650,
+        "military": 55,
+        "stability": 50
+    },
+    "turn": 11
+}

@@ -1,0 +1,28 @@
+{
+  "id": "economic_crisis_1",
+  "title": "Economic Downturn",
+  "description": "Your country is facing a severe economic downturn, leading to unemployment and unrest. What measures will you take?",
+  "choices": [
+    {
+      "text": "Implement austerity measures (cut spending, raise taxes).",
+      "effects": {
+        "budget": 200,
+        "stability": -15
+      }
+    },
+    {
+      "text": "Stimulate the economy with government spending and subsidies.",
+      "effects": {
+        "budget": -300,
+        "stability": 10
+      }
+    },
+    {
+      "text": "Seek emergency loans from international organizations.",
+      "effects": {
+        "budget": 400,
+        "stability": -5
+      }
+    }
+  ]
+}

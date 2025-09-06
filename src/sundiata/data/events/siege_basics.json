@@ -1,0 +1,31 @@
+{
+  "id": "siege_basics_1",
+  "title": "Insurgent Blockade",
+  "description": "Insurgents have blockaded a key trade route, impacting your economy. What will you do?",
+  "choices": [
+    {
+      "text": "Launch a military operation to clear the blockade.",
+      "effects": {
+        "budget": -200,
+        "military": -10,
+        "stability": -5
+      }
+    },
+    {
+      "text": "Negotiate with the insurgents for safe passage.",
+      "effects": {
+        "budget": -50,
+        "military": 0,
+        "stability": -10
+      }
+    },
+    {
+      "text": "Seek foreign aid to bypass the blockade.",
+      "effects": {
+        "budget": 100,
+        "military": 0,
+        "stability": 5
+      }
+    }
+  ]
+}

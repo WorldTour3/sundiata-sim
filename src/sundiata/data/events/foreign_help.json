@@ -1,0 +1,28 @@
+{
+  "id": "foreign_help_1",
+  "title": "International Aid Offer",
+  "description": "A powerful foreign nation has offered significant aid, but with strings attached. Will you accept?",
+  "choices": [
+    {
+      "text": "Accept the aid, despite the conditions.",
+      "effects": {
+        "budget": 300,
+        "stability": -5
+      }
+    },
+    {
+      "text": "Reject the aid, maintaining full sovereignty.",
+      "effects": {
+        "budget": -50,
+        "stability": 5
+      }
+    },
+    {
+      "text": "Negotiate for better terms, risking the offer.",
+      "effects": {
+        "budget": 150,
+        "stability": 0
+      }
+    }
+  ]
+}

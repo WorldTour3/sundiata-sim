@@ -1,0 +1,28 @@
+{
+  "id": "governance_1",
+  "title": "Corruption Scandal",
+  "description": "A major corruption scandal has erupted within your government, eroding public trust. How will you respond?",
+  "choices": [
+    {
+      "text": "Launch a full-scale investigation and prosecute all involved.",
+      "effects": {
+        "budget": -100,
+        "stability": 10
+      }
+    },
+    {
+      "text": "Downplay the scandal and protect key officials.",
+      "effects": {
+        "budget": 50,
+        "stability": -15
+      }
+    },
+    {
+      "text": "Implement new transparency laws and oversight committees.",
+      "effects": {
+        "budget": -75,
+        "stability": 5
+      }
+    }
+  ]
+}
