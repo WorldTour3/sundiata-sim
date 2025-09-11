@@ -21,7 +21,17 @@ def load_scenario(scenario_id: str):
         print(f"An unexpected error occurred while loading scenario {scenario_id}: {e}")
         return None
 
-def get_random_scenario_id() -> str:
-    """Returns the ID of a randomly selected scenario."""
-    scenario_files = ["siege_basics", "governance", "foreign_help", "economic_crisis"]
-    return random.choice(scenario_files)
+def get_all_scenario_ids() -> list[str]:
+    """Returns a list of all scenario IDs from the data/events directory."""
+    return [
+        path.stem
+        for path in importlib.resources.files("sundiata.data.events").iterdir()
+        if path.is_file() and path.suffix == ".json"
+    ]
+
+
+def get_shuffled_scenario_ids() -> list[str]:
+    """Returns a shuffled list of all scenario IDs."""
+    scenario_ids = get_all_scenario_ids()
+    random.shuffle(scenario_ids)
+    return scenario_ids

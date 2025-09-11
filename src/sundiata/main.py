@@ -1,5 +1,5 @@
 from sundiata.models.player import Player
-from sundiata.engine.scenario_manager import load_scenario, get_random_scenario_id
+from sundiata.engine.scenario_manager import load_scenario, get_shuffled_scenario_ids
 from sundiata.ui.prompts import get_choice
 from sundiata.engine.resolver import resolve_choice
 from sundiata.ui.screen import display_player_stats, display_scenario, display_game_end_screen
@@ -23,14 +23,21 @@ def game_loop(player: Player, start_turn: int):
     game_end_message = ""
     game_end_status = ""
 
+    # Get a shuffled list of scenario IDs
+    shuffled_scenario_ids = get_shuffled_scenario_ids()
+
     for turn in range(start_turn, num_turns + 1):
         current_turn = turn
         console.print(f"\n--- Turn {turn} --- ")
         display_player_stats(player)
 
-        # Load and display a random scenario
-        random_scenario_id = get_random_scenario_id()
-        scenario = load_scenario(random_scenario_id)
+        # If we've run out of scenarios, reshuffle and start over
+        if not shuffled_scenario_ids:
+            shuffled_scenario_ids = get_shuffled_scenario_ids()
+
+        # Load and display a scenario from our shuffled list
+        scenario_id = shuffled_scenario_ids.pop(0)
+        scenario = load_scenario(scenario_id)
         if scenario:
             display_scenario(scenario)
 
