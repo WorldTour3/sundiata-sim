@@ -2,7 +2,7 @@ from sundiata.models.player import Player
 from sundiata.engine.scenario_manager import load_scenario, get_shuffled_scenario_ids
 from sundiata.ui.prompts import get_choice
 from sundiata.engine.resolver import resolve_choice
-from sundiata.ui.screen import display_player_stats, display_scenario, display_game_end_screen
+from sundiata.ui.screen import display_scenario, display_game_end_screen
 from sundiata.engine.ai import insurgent_action
 from sundiata.persistence.io import save_game, load_game
 from sundiata.models.save import SaveGame
@@ -21,7 +21,7 @@ def game_loop(player: Player, start_turn: int):
     game_over = False
     current_turn = start_turn
     game_end_message = ""
-    game_end_status = ""
+    messages = [f"Initial Stats: Budget: {player.budget}, Military: {player.military}, Stability: {player.stability}"]
 
     # Get a shuffled list of scenario IDs
     shuffled_scenario_ids = get_shuffled_scenario_ids()
@@ -29,7 +29,6 @@ def game_loop(player: Player, start_turn: int):
     for turn in range(start_turn, num_turns + 1):
         current_turn = turn
         console.print(f"\n--- Turn {turn} --- ")
-        display_player_stats(player)
 
         # If we've run out of scenarios, reshuffle and start over
         if not shuffled_scenario_ids:
@@ -39,7 +38,8 @@ def game_loop(player: Player, start_turn: int):
         scenario_id = shuffled_scenario_ids.pop(0)
         scenario = load_scenario(scenario_id)
         if scenario:
-            display_scenario(scenario)
+            display_scenario(scenario, messages)
+            messages = []
 
             # Get player choice
             chosen_index = get_choice(scenario['choices']) - 1 # Adjust to 0-based index
@@ -49,15 +49,14 @@ def game_loop(player: Player, start_turn: int):
 
             # Apply effects
             resolve_choice(player, chosen_option['effects'])
+            messages.append(f"Player Stats After Choice: Budget: {player.budget}, Military: {player.military}, Stability: {player.stability}")
 
-            console.print("\nPlayer Stats After Choice:")
-            display_player_stats(player)
 
             # Insurgent AI action
             ai_message = insurgent_action(player)
-            console.print(f"\n[bold yellow]Insurgent Action:[/bold yellow] {ai_message}")
-            console.print("\nPlayer Stats After Insurgent Action:")
-            display_player_stats(player)
+            messages.append(f"[bold yellow]Insurgent Action:[/bold yellow] {ai_message}")
+            messages.append(f"Player Stats After Insurgent Action: Budget: {player.budget}, Military: {player.military}, Stability: {player.stability}")
+
 
             # Check for loss conditions
             if player.budget < MIN_BUDGET:
